@@ -12,7 +12,7 @@ Use this JSON payload to create an Admin user:
   "name": "Forahia Bank Manager",
   "email": "forahia@quantflow.app",
   "password": "password123",
-  "password_confirmation": "password123"
+  "password_confirmation": "password123" 
 }
 ```
 *Take the `token` from the response and paste it into the **Authorize** (Padlock) button at the top of Swagger.*
