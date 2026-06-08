@@ -72,13 +72,10 @@ final class ApprovalController extends Controller
         ],
         requestBody: new OA\RequestBody(
             required: false,
-            content: new OA\MediaType(
-                mediaType: "application/x-www-form-urlencoded",
-                schema: new OA\Schema(
-                    properties: [
-                        new OA\Property(property: "comment", type: "string")
-                    ]
-                )
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: "comment", type: "string")
+                ]
             )
         ),
         responses: [
@@ -107,14 +104,11 @@ final class ApprovalController extends Controller
         ],
         requestBody: new OA\RequestBody(
             required: true,
-            content: new OA\MediaType(
-                mediaType: "application/x-www-form-urlencoded",
-                schema: new OA\Schema(
-                    required: ["comment"],
-                    properties: [
-                        new OA\Property(property: "comment", type: "string")
-                    ]
-                )
+            content: new OA\JsonContent(
+                required: ["comment"],
+                properties: [
+                    new OA\Property(property: "comment", type: "string")
+                ]
             )
         ),
         responses: [

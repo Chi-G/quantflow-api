@@ -24,17 +24,14 @@ final class AuthController extends Controller
         tags: ["Authentication"],
         requestBody: new OA\RequestBody(
             required: true,
-            content: new OA\MediaType(
-                mediaType: "application/x-www-form-urlencoded",
-                schema: new OA\Schema(
-                    required: ["name", "email", "password", "password_confirmation"],
-                    properties: [
-                        new OA\Property(property: "name", type: "string"),
-                        new OA\Property(property: "email", type: "string"),
-                        new OA\Property(property: "password", type: "string"),
-                        new OA\Property(property: "password_confirmation", type: "string")
-                    ]
-                )
+            content: new OA\JsonContent(
+                required: ["name", "email", "password", "password_confirmation"],
+                properties: [
+                    new OA\Property(property: "name", type: "string"),
+                    new OA\Property(property: "email", type: "string"),
+                    new OA\Property(property: "password", type: "string"),
+                    new OA\Property(property: "password_confirmation", type: "string")
+                ]
             )
         ),
         responses: [
@@ -66,15 +63,12 @@ final class AuthController extends Controller
         tags: ["Authentication"],
         requestBody: new OA\RequestBody(
             required: true,
-            content: new OA\MediaType(
-                mediaType: "application/x-www-form-urlencoded",
-                schema: new OA\Schema(
-                    required: ["email", "password"],
-                    properties: [
-                        new OA\Property(property: "email", type: "string"),
-                        new OA\Property(property: "password", type: "string")
-                    ]
-                )
+            content: new OA\JsonContent(
+                required: ["email", "password"],
+                properties: [
+                    new OA\Property(property: "email", type: "string"),
+                    new OA\Property(property: "password", type: "string")
+                ]
             )
         ),
         responses: [
