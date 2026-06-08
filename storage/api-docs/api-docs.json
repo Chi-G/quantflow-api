@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://localhost:8000",
             "description": "API Server"
         }
     ],
@@ -637,13 +637,11 @@
                     "required": true,
                     "content": {
                         "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "metadata": {
-                                        "type": "object"
-                                    }
-                                },
-                                "type": "object"
+                            "schema": {},
+                            "example": {
+                                "metadata": {
+                                    "note": "Expedite this payout!"
+                                }
                             }
                         }
                     }

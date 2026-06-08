@@ -26,6 +26,7 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 explain.md
+login-credentials.md
 
 # Database
 /database/database.sqlite

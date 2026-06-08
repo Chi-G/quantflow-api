@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -19,24 +20,24 @@ final class AuthController extends Controller
     use HasApiResponse;
 
     #[OA\Post(
-        path: "/api/v1/auth/register",
-        summary: "Register a new user",
-        tags: ["Authentication"],
+        path: '/api/v1/auth/register',
+        summary: 'Register a new user',
+        tags: ['Authentication'],
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
-                required: ["name", "email", "password", "password_confirmation"],
+                required: ['name', 'email', 'password', 'password_confirmation'],
                 properties: [
-                    new OA\Property(property: "name", type: "string"),
-                    new OA\Property(property: "email", type: "string"),
-                    new OA\Property(property: "password", type: "string"),
-                    new OA\Property(property: "password_confirmation", type: "string")
+                    new OA\Property(property: 'name', type: 'string'),
+                    new OA\Property(property: 'email', type: 'string'),
+                    new OA\Property(property: 'password', type: 'string'),
+                    new OA\Property(property: 'password_confirmation', type: 'string'),
                 ]
             )
         ),
         responses: [
-            new OA\Response(response: 201, description: "Successful operation"),
-            new OA\Response(response: 422, description: "Validation error")
+            new OA\Response(response: 201, description: 'Successful operation'),
+            new OA\Response(response: 422, description: 'Validation error'),
         ]
     )]
     public function register(RegisterRequest $request): JsonResponse
@@ -46,7 +47,7 @@ final class AuthController extends Controller
             'name' => $request->validated('name'),
             'email' => $request->validated('email'),
             'password' => Hash::make($request->validated('password')),
-            'role' => \App\Enums\UserRole::Admin->value,
+            'role' => UserRole::Admin->value,
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -58,33 +59,33 @@ final class AuthController extends Controller
     }
 
     #[OA\Post(
-        path: "/api/v1/auth/login",
-        summary: "Login user",
-        tags: ["Authentication"],
+        path: '/api/v1/auth/login',
+        summary: 'Login user',
+        tags: ['Authentication'],
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
-                required: ["email", "password"],
+                required: ['email', 'password'],
                 properties: [
-                    new OA\Property(property: "email", type: "string"),
-                    new OA\Property(property: "password", type: "string")
+                    new OA\Property(property: 'email', type: 'string'),
+                    new OA\Property(property: 'password', type: 'string'),
                 ]
             )
         ),
         responses: [
-            new OA\Response(response: 200, description: "Successful login"),
-            new OA\Response(response: 401, description: "Unauthorized")
+            new OA\Response(response: 200, description: 'Successful login'),
+            new OA\Response(response: 401, description: 'Unauthorized'),
         ]
     )]
     public function login(LoginRequest $request): JsonResponse
     {
         $user = User::where('email', $request->validated('email'))->first();
 
-        if (!$user || !Hash::check($request->validated('password'), $user->password)) {
+        if (! $user || ! Hash::check($request->validated('password'), $user->password)) {
             return $this->error('Invalid credentials.', [], 401);
         }
 
-        if (!$user->is_active) {
+        if (! $user->is_active) {
             return $this->error('Account is disabled.', [], 403);
         }
 
@@ -97,19 +98,19 @@ final class AuthController extends Controller
     }
 
     #[OA\Post(
-        path: "/api/v1/auth/logout",
-        summary: "Logout user",
-        security: [["bearerAuth" => []]],
-        tags: ["Authentication"],
+        path: '/api/v1/auth/logout',
+        summary: 'Logout user',
+        security: [['bearerAuth' => []]],
+        tags: ['Authentication'],
         responses: [
-            new OA\Response(response: 200, description: "Successful logout")
+            new OA\Response(response: 200, description: 'Successful logout'),
         ]
     )]
     public function logout(): JsonResponse
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = auth()->user();
-        
+
         $token = $user->currentAccessToken();
         if ($token && method_exists($token, 'delete')) {
             $token->delete();
@@ -119,18 +120,18 @@ final class AuthController extends Controller
     }
 
     #[OA\Get(
-        path: "/api/v1/auth/me",
-        summary: "Get authenticated user",
-        security: [["bearerAuth" => []]],
-        tags: ["Authentication"],
+        path: '/api/v1/auth/me',
+        summary: 'Get authenticated user',
+        security: [['bearerAuth' => []]],
+        tags: ['Authentication'],
         responses: [
-            new OA\Response(response: 200, description: "Successful operation")
+            new OA\Response(response: 200, description: 'Successful operation'),
         ]
     )]
     public function me(): JsonResponse
     {
         return $this->success('User profile retrieved.', [
-            'user' => auth()->user()
+            'user' => auth()->user(),
         ]);
     }
 }

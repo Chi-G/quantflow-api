@@ -1,0 +1,7 @@
+reference_number,amount,currency,recipient_name,recipient_account,bank_code
+TRX-1001,50000.00,NGN,Emeka Okafor,0123456789,058
+TRX-1002,120000.00,NGN,Amaka Nwosu,0987654321,033
+TRX-1003,bad_amount,NGN,Test User,0111222333,011
+TRX-1004,7500.50,NGN,John Doe,1234567890,044
+TRX-1005,-500.00,NGN,Negative Tester,0987654321,058
+TRX-1006,25000.00,USD,Wrong Currency,1122334455,011

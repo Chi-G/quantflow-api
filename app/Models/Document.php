@@ -34,7 +34,6 @@ class Document extends Model
     {
         return [
             'status' => DocumentStatus::class,
-            'amount' => 'decimal:2',
             'metadata' => 'array',
             'processed_at' => 'datetime',
         ];

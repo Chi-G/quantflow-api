@@ -30,10 +30,10 @@ final class DocumentController extends Controller
     public function index(Request $request): \Illuminate\Http\JsonResponse
     {
         $documents = QueryBuilder::for(Document::class)
-            ->allowedFilters([
+            ->allowedFilters(
                 AllowedFilter::exact('status'),
-                AllowedFilter::exact('batch_id'),
-            ])
+                AllowedFilter::exact('batch_id')
+            )
             ->paginate($request->integer('per_page', 15));
 
         return response()->json([
@@ -80,8 +80,10 @@ final class DocumentController extends Controller
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
-                properties: [
-                    new OA\Property(property: "metadata", type: "object")
+                example: [
+                    "metadata" => [
+                        "note" => "Expedite this payout!"
+                    ]
                 ]
             )
         ),
