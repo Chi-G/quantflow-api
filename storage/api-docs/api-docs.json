@@ -1,0 +1,698 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "QuantFlow API",
+        "description": "QuantFlow API for financial batch document processing.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/v1/approvals": {
+            "get": {
+                "tags": [
+                    "Approvals"
+                ],
+                "summary": "List pending approvals",
+                "operationId": "4f24b4ceeb298c55d450bea0994e5bd2",
+                "responses": {
+                    "200": {
+                        "description": "Pending approvals retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/approvals/{id}": {
+            "get": {
+                "tags": [
+                    "Approvals"
+                ],
+                "summary": "Get approval details",
+                "operationId": "afb5bcf80bf838a4956e38bf077dc400",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Approval request details retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/approvals/{id}/approve": {
+            "post": {
+                "tags": [
+                    "Approvals"
+                ],
+                "summary": "Approve a document",
+                "operationId": "9e2ea0238ae53f78acc95dd3ecd02246",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "comment": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Document approved successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/approvals/{id}/reject": {
+            "post": {
+                "tags": [
+                    "Approvals"
+                ],
+                "summary": "Reject a document",
+                "operationId": "ee388d0b7ceccacd3dac01a93a0e65f4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "comment": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Document rejected successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/audit-logs": {
+            "get": {
+                "tags": [
+                    "Audit"
+                ],
+                "summary": "List audit logs",
+                "operationId": "1438e51213343ff34578c2ca71f0a9ca",
+                "responses": {
+                    "200": {
+                        "description": "Audit logs retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/audit-logs/{id}": {
+            "get": {
+                "tags": [
+                    "Audit"
+                ],
+                "summary": "Get audit log details",
+                "operationId": "a4d14aa797d53c57454418b9d65f6460",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Audit log details retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "operationId": "fb835c97347e657e2a627790c4c5817a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user",
+                "operationId": "fb66b153966d9fac2e999136ef0ade67",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout user",
+                "operationId": "307ed0512855922b2280792376bb2095",
+                "responses": {
+                    "200": {
+                        "description": "Successful logout"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/me": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get authenticated user",
+                "operationId": "5389aaa95512ef0b6ec88f262ecee7f0",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/batches/template": {
+            "get": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Download a sample CSV template",
+                "operationId": "2ef71b2d7c26ffba8325404a9f21207a",
+                "responses": {
+                    "200": {
+                        "description": "CSV file downloaded"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/batches": {
+            "get": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "List batches",
+                "operationId": "96e616ea018f5730ba21322bb3575ea7",
+                "responses": {
+                    "200": {
+                        "description": "Batches retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Upload a batch",
+                "operationId": "da04d87fe797343d0f3408e0efecd01b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Batch created successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/batches/{uuid}": {
+            "get": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Get batch details",
+                "operationId": "7fe0bd781d537e76abd758684a681547",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Batch details retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/batches/{uuid}/submit": {
+            "post": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Submit batch for processing",
+                "operationId": "b808d84ee02dcbeba5476043954e5840",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Batch submitted for processing"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/batches/{uuid}/retry": {
+            "post": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Retry a failed batch",
+                "operationId": "0f6de5cd483392d1b0db6759f5a3c609",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Batch retry initiated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/batches/{uuid}/documents": {
+            "get": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "List documents in a batch",
+                "operationId": "4753b93478bc5acbdb17529c961d2a1c",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Batch documents retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/batches/{uuid}/status": {
+            "get": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Get batch status",
+                "operationId": "5ef865fd2632169e74d4b00d3d769c8b",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Batch status retrieved"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/documents": {
+            "get": {
+                "tags": [
+                    "Documents"
+                ],
+                "summary": "List documents",
+                "operationId": "07a88109d5967ac490be72ceb7fa973b",
+                "parameters": [
+                    {
+                        "name": "filter[status]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[batch_id]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of documents"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/documents/{uuid}": {
+            "get": {
+                "tags": [
+                    "Documents"
+                ],
+                "summary": "Get a specific document",
+                "operationId": "7ca10ac494b3809add5eb58b7f47c2e1",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Document details"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Documents"
+                ],
+                "summary": "Update document metadata (pre-submit only)",
+                "operationId": "1a855dc472d596cc373f06f812a04df2",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Document updated"
+                    },
+                    "403": {
+                        "description": "Forbidden - Batch already submitted"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Approvals",
+            "description": "Approvals"
+        },
+        {
+            "name": "Audit",
+            "description": "Audit"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Batches",
+            "description": "Batches"
+        },
+        {
+            "name": "Documents",
+            "description": "Documents"
+        }
+    ]
+}

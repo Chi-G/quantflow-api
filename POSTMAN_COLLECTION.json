@@ -1,0 +1,103 @@
+{
+  "info": {
+    "name": "QuantFlow API - Technical Assessment",
+    "description": "API collection for the QuantFlow document processing system.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Admin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/auth/register", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/auth/login", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Batches",
+      "item": [
+        {
+          "name": "Download CSV Template",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/batches/template", "host": ["{{base_url}}"], "path": ["api", "v1", "batches", "template"] } }
+        },
+        {
+          "name": "Upload Batch",
+          "request": { "method": "POST", "url": { "raw": "{{base_url}}/api/v1/batches", "host": ["{{base_url}}"], "path": ["api", "v1", "batches"] } }
+        },
+        {
+          "name": "Submit Batch",
+          "request": { "method": "POST", "url": { "raw": "{{base_url}}/api/v1/batches/{{batch_uuid}}/submit", "host": ["{{base_url}}"], "path": ["api", "v1", "batches", "{{batch_uuid}}", "submit"] } }
+        },
+        {
+          "name": "Get Batch Status",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/batches/{{batch_uuid}}/status", "host": ["{{base_url}}"], "path": ["api", "v1", "batches", "{{batch_uuid}}", "status"] } }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "List All Documents",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/documents", "host": ["{{base_url}}"], "path": ["api", "v1", "documents"] } }
+        },
+        {
+          "name": "Get Single Document",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/documents/{{document_uuid}}", "host": ["{{base_url}}"], "path": ["api", "v1", "documents", "{{document_uuid}}"] } }
+        },
+        {
+          "name": "Update Document Metadata",
+          "request": { "method": "PATCH", "url": { "raw": "{{base_url}}/api/v1/documents/{{document_uuid}}", "host": ["{{base_url}}"], "path": ["api", "v1", "documents", "{{document_uuid}}"] } }
+        }
+      ]
+    },
+    {
+      "name": "Approvals",
+      "item": [
+        {
+          "name": "List Approvals",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/approvals", "host": ["{{base_url}}"], "path": ["api", "v1", "approvals"] } }
+        },
+        {
+          "name": "Approve Document",
+          "request": { "method": "POST", "url": { "raw": "{{base_url}}/api/v1/approvals/{{approval_id}}/approve", "host": ["{{base_url}}"], "path": ["api", "v1", "approvals", "{{approval_id}}", "approve"] } }
+        }
+      ]
+    },
+    {
+      "name": "Audit Logs",
+      "item": [
+        {
+          "name": "Get Audit Logs",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/audit-logs", "host": ["{{base_url}}"], "path": ["api", "v1", "audit-logs"] } }
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{auth_token}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "auth_token", "value": "" },
+    { "key": "batch_uuid", "value": "" },
+    { "key": "document_uuid", "value": "" },
+    { "key": "approval_id", "value": "" }
+  ]
+}
